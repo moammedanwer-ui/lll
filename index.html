@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EMPIRE SPORT — Glass Review Frame</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-teal: #083335;
+      --deep-black: #010A0B;
+      --pure-white: #FFFFFF;
+      --font-main: 'Cairo', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      font-family: var(--font-main);
+      color: var(--pure-white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Exact Mobile 9:16 Stage */
+    .mobile-stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 430px;
+      max-height: 932px;
+      background: radial-gradient(circle at 50% 35%, #0e4c4f 0%, var(--primary-teal) 65%, var(--deep-black) 100%);
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: clamp(48px, 6.5vh, 60px) 18px clamp(18px, 2.5vh, 26px) 18px;
+    }
+
+    @media (min-width: 500px) and (min-height: 750px) {
+      .mobile-stage {
+        height: 92vh;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    /* Canvas Particles Background */
+    .bg-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Texture Overlay */
+    .texture-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 50% 50%, transparent 30%, rgba(0,0,0,0.85) 100%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 35px 35px, 35px 35px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Top Bar Mini Tag */
+    .top-bar {
+      position: absolute;
+      top: clamp(14px, 2vh, 20px);
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .brand-mini-tag {
+      font-size: clamp(0.7rem, 1.8vw, 0.78rem);
+      font-weight: 900;
+      letter-spacing: 5px;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+    }
+
+    /* Header Section */
+    .header-box {
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+    }
+
+    .header-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .header-badge {
+      display: inline-block;
+      font-size: clamp(0.65rem, 1.6vw, 0.72rem);
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--pure-white);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 3px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .header-title {
+      font-size: clamp(1.35rem, 3.8vw, 1.6rem);
+      font-weight: 900;
+      color: var(--pure-white);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+    }
+
+    /* Central Glass Square Frame for Screenshot */
+    .glass-square-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 1 / 1; /* مربع متناسق */
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 24px;
+      padding: 12px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: auto 0;
+    }
+
+    .glass-square-wrapper.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .screenshot-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
+    /* Placeholder if image is missing */
+    .placeholder-box {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .placeholder-icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      opacity: 0.85;
+    }
+
+    .placeholder-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      opacity: 0.75;
+      line-height: 1.4;
+    }
+
+    /* Bottom Trust Footer */
+    .trust-footer {
+      z-index: 10;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: clamp(8px, 1.2vh, 10px) 12px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .trust-footer.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .trust-text {
+      font-size: clamp(0.72rem, 1.9vw, 0.8rem);
+      font-weight: 800;
+      color: var(--pure-white);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-stage">
+    
+    <!-- Background Canvas Particles -->
+    <canvas class="bg-canvas" id="bgCanvas"></canvas>
+    <div class="texture-overlay"></div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="brand-mini-tag">EMPIRE SPORT</div>
+    </div>
+
+    <!-- Header -->
+    <div class="header-box" id="headerBox">
+      <div class="header-badge">تجربة عملائنا</div>
+      <h1 class="header-title">آراء وشهادات نعتز بها</h1>
+    </div>
+
+    <!-- Central Glass Square for Screenshot -->
+    <div class="glass-square-wrapper" id="glassSquare">
+      <!-- استبدل screenshot.jpg باسم صورة السكرين شوت الخاصة بك -->
+      <img src="screenshot.jpg" alt="رأي العميل" class="screenshot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      
+      <div class="placeholder-box" style="display:none;">
+        <div class="placeholder-icon">💬</div>
+        <div class="placeholder-text">ضع صورة سكرين شوت محادثة العميل هنا<br>(اسم الصورة: screenshot.jpg)</div>
+      </div>
+    </div>
+
+    <!-- Bottom Trust Footer -->
+    <div class="trust-footer" id="trustFooter">
+      <div class="trust-text">✨ ثقتكم ورضاكم هو دافعنا لتقديم الأفضل دائماً!</div>
+    </div>
+
+  </div>
+
+  <script>
+    /* Canvas Particles Background */
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.8 + 0.3;
+        this.speedY = -(Math.random() * 0.4 + 0.1);
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.y += this.speedY;
+        if (this.y < 0) this.reset();
+      }
+      draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) particles.push(new Particle());
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
+
+    /* Animation Timeline Controller */
+    let timers = [];
+
+    function addTimer(fn, delay) {
+      timers.push(setTimeout(fn, delay));
+    }
+
+    function startAnimation() {
+      timers.forEach(t => clearTimeout(t));
+      timers = [];
+
+      document.getElementById('headerBox').classList.remove('show');
+      document.getElementById('glassSquare').classList.remove('show');
+      document.getElementById('trustFooter').classList.remove('show');
+
+      addTimer(() => document.getElementById('headerBox').classList.add('show'), 200);
+      addTimer(() => document.getElementById('glassSquare').classList.add('show'), 700);
+      addTimer(() => document.getElementById('trustFooter').classList.add('show'), 1400);
+
+      // Loop Automatically for Reel & Highlight Recording
+      addTimer(() => startAnimation(), 8500);
+    }
+
+    window.addEventListener('DOMContentLoaded', startAnimation);
+  </script>
+</body>
+</html>
